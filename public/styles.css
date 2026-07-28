@@ -1,0 +1,233 @@
+/* Chapter One — the ONLY stylesheet. All styling lives here (see AGENTS.md). */
+
+:root {
+  --navy: #003d7c;
+  --ink: #1f2a37;
+  --orange: #ef7c00;
+  --cream: #faf5ec;
+  --line: #e4e9ef;
+  --muted: #5b6b7a;
+  --panel: #f4f8fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+}
+
+/* ---- top bar ---- */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.9rem 2rem;
+  background: var(--navy);
+  color: #fff;
+}
+.brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav a {
+  color: #dbe6f2;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+.nav a.active {
+  color: #fff;
+  border-bottom: 2px solid var(--orange);
+}
+
+/* ---- hero ---- */
+.hero {
+  background: var(--cream);
+  padding: 2.4rem 2rem;
+}
+.hero-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.hero-text h1 {
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.05;
+}
+.hero-divider {
+  display: block;
+  width: 56px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--orange);
+  margin: 1.1rem 0;
+}
+.hero-text p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+.hero-art {
+  flex: 0 0 auto;
+  width: 46%;
+  max-width: 520px;
+}
+.hero-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 720px) {
+  .hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-art {
+    width: 100%;
+  }
+}
+
+/* ---- layout ---- */
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.section-title {
+  color: var(--navy);
+  margin: 0 0 1.2rem;
+}
+
+/* ---- about view ---- */
+#about-view {
+  max-width: 60ch;
+  line-height: 1.6;
+  color: var(--ink);
+}
+#about-view p {
+  margin: 0 0 1rem;
+}
+.about-lead {
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+/* ---- catalogue grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.4rem;
+}
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: #fff;
+}
+.cover {
+  height: 240px;
+  border-radius: 6px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.card-title {
+  margin: 0.7rem 0 0.1rem;
+  font-size: 1rem;
+  color: var(--navy);
+}
+.card-author {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+}
+.price {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* ---- buttons ---- */
+.btn {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn:hover {
+  background: #002a58;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--navy);
+  padding-left: 0;
+}
+
+/* ---- detail view ---- */
+.detail {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+}
+.detail-cover {
+  height: 320px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.detail-genre {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+}
+.detail-body h2 {
+  color: var(--navy);
+  margin: 0.3rem 0;
+}
+.detail-author {
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+}
+.detail-price {
+  font-size: 1.3rem;
+}
+.detail-desc {
+  line-height: 1.6;
+  max-width: 46ch;
+}
+
+/* ---- footer ---- */
+.sitefoot {
+  border-top: 1px solid var(--line);
+  padding: 1.4rem 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
