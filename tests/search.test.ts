@@ -62,3 +62,36 @@ describe("catalogue genre filtering", () => {
     expect(res.body).toEqual([]);
   });
 });
+
+describe("catalogue query edge cases", () => {
+  it("trims surrounding whitespace on both filters", async () => {
+    const res = await request(app).get("/api/books").query({ q: " light ", genre: " fiction " });
+    expect(res.status).toBe(200);
+    expect(res.body.map((book: { id: string }) => book.id)).toEqual(["the-lantern-sea"]);
+  });
+  it("treats whitespace-only filters as absent", async () => {
+    const res = await request(app).get("/api/books").query({ q: "  ", genre: "  " });
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(8);
+  });
+  it("returns an empty list for an unknown genre", async () => {
+    const res = await request(app).get("/api/books").query({ genre: "Biography" });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual([]);
+  });
+  it.each(["q=x&q=y", "genre=Fiction&genre=Mystery", "q[x]=light", "genre[x]=Mystery"])(
+    "rejects repeated or structured filters: %s",
+    async (query) => {
+      const res = await request(app).get(`/api/books?${query}`);
+      expect(res.status).toBe(400);
+      expect(typeof res.body.error).toBe("string");
+    },
+  );
+  it("does not mutate the catalogue when filtering", async () => {
+    const before = await request(app).get("/api/books");
+    await request(app).get("/api/books").query({ q: "light", genre: "Fiction" });
+    const after = await request(app).get("/api/books");
+    expect(after.status).toBe(200);
+    expect(after.body).toEqual(before.body);
+  });
+});
