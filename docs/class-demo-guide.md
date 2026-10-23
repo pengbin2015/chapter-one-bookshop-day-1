@@ -58,7 +58,7 @@ slide 18's repeated rating task meaningful. Separate completed examples:
   no API change, with render tests. This is a chosen example specification;
   a different prompt voted by the class may produce a different result.
 - `demo/bug-search-case-sensitive`: deliberately broken genre comparison;
-  one existing case-insensitivity test fails. Use only for slides 25–26.
+  four genre-related assertions fail. Use only for slides 25–26.
   Recover with `demo/13-review`.
 
 ## Exact demo prompts and observable results
@@ -122,9 +122,11 @@ not a deterministic security boundary; a model can ignore it. The completed
 line is present from checkpoint 15 onward.
 
 **38–39:** `/commit` needs an actual change. At checkpoint 16 create a small
-NOTES.md with the architecture summary below, inspect the diff, invoke /commit,
+NOTES.md with an architecture summary, inspect the diff, invoke /commit,
 and inspect the resulting commit. If it fails, checkpoint 17 has that note
-committed. The prompt file currently pins gpt-4.1; check model availability in
+committed. To stage exactly the prepared example before invoking /commit:
+`git show demo/17-api-skill:NOTES.md > NOTES.md`.
+The prompt file currently pins gpt-4.1; check model availability in
 your VS Code/Copilot account before class (or select an available model).
 
 **41:** Ask “Add regression tests proving that a search by author can be
