@@ -1,56 +1,78 @@
 # Day 1 instructor checkpoints — deck v5
 
-Each numbered branch is the **start** of its demo. Switch to the next number
-if the current demo fails: the preceding implementation is already committed.
-Read-only demos intentionally share a commit. All branches include this guide.
+Each numbered branch is the **start** of its demo. Start a fresh working branch
+from the next checkpoint if a demo fails: the preceding implementation is
+already committed. Treat the remote `origin/demo/...` refs as the backups.
+Read-only demos intentionally share the same application files. All branches include this guide.
 The slide numbers below are the visible slide numbers, not speaker-note filenames.
 
 ## Recovery during class
 
 ```sh
-git fetch origin
-# Preserve an interrupted attempt, including new tests, before switching:
+# In terminal 1, stop your old dev server with Ctrl+C before switching.
+# In terminal 2, preserve your interrupted work, including new tests:
 git status --short
 git stash push -u -m "class: interrupted demo"
-git switch demo/11-build-phase-2
-# If the branch is only remote: git switch --track origin/demo/11-build-phase-2
+git fetch origin
+# Always use a NEW class branch name; increment 01 to 02 on a repeat.
+git switch --no-track -c class/phase-2-01 origin/demo/11-build-phase-2
 npm test
 npm run dev
 ```
 
-Use a second terminal for tests. Stop the old dev process before switching and
-restart it afterward; memory resets to the seed. Do not use `git restore .` or a
-hard reset as a recovery shortcut. Recover stashed work later, on its original
-branch, with `git stash list` and `git stash apply` after class. Stashes are local.
-All checkpoints use the same package lock, so a branch switch does not require
-reinstallation. On a fresh clone use Node 22 or 24 LTS and `npm ci`.
+Use fresh `class/...` branches for every attempt; do not commit or push demo
+work on the backup `demo/...` branches. Fetching updates remote-tracking refs,
+but does not reset an existing local branch you may have changed. Using
+`origin/demo/...` as the starting point avoids that trap and works in a fresh
+clone where most checkpoint branches have no local names yet. Do not use
+`git switch -C`, `git reset --hard`, or force-push as recovery shortcuts.
+Keep the stash if you still need it; apply it later on its original class
+branch with `git stash apply`. A branch switch does not restore a chat session,
+stash, environment variables or processes. Open a fresh chat with the accepted
+plan/file context and restart the server after switching.
+
+The first demo starts the same way:
+
+```sh
+git fetch origin
+git switch --no-track -c class/setup-01 origin/demo/01-setup
+node -v                     # Node 24 LTS; .nvmrc is 24 on demo branches
+npm ci
+npm test                    # 12 passing tests on the starter
+```
+
+Use a second terminal for tests. The store resets when the process restarts.
+All checkpoints use the same package lock, so switching between demo branches
+does not require reinstalling dependencies. The original main branch still
+has its original Node 20 pin; choose a demo branch before using `nvm use`.
 
 ## Main route through the class
 
-| Branch to switch to | Slides / demo to perform | Already completed |
-| --- | --- | --- |
-| `demo/01-setup` | 9–13: startup, tests, architecture | Starter app; 12 tests |
-| `demo/02-prompt-race` | 14: vague vs strong rating prompts | Same starter |
-| `demo/03-low-stock` | 15: pairs specify a low-stock warning | Same starter; isolated exercise |
-| `demo/04-completions` | 16–17: add `listLowStock()` in Store | Clean starter, experimental edits cleared |
-| `demo/05-inline-chat` | 17: reject blank/whitespace book id | Low-stock method and tests |
-| `demo/06-agent-ratings` | 18: add optional 0–5 rating, seed all books | Inline validation and tests |
-| `demo/07-context` | 19: attach files, explain routing | Ratings, seed values, API tests |
-| `demo/08-ask` | 21–22: explore, trace, explain | Same code; Ask stays read-only |
-| `demo/09-plan` | 23–24: agree search/filter semantics | Same code; plan not yet saved |
-| `demo/10-build-phase-1` | 25: implement `q` search only | Accepted plan in `docs/demo-search-plan.md` |
-| `demo/11-build-phase-2` | 25: add `genre` and AND combination | Phase 1: title/author search and tests |
-| `demo/12-run-test-fix` | 26: run tests, cover edge cases | Phase 2: search + genre API and core tests |
-| `demo/13-review` | 27–29: inspect diff, discuss undo and context | Search edge cases and invalid-input tests |
-| `demo/14-standards` | 33–35: add a guardrail, try forbidden edit | Completed morning feature; original AGENTS.md |
-| `demo/15-scoped-rules` | 36–37: inspect scoped instructions | Added `Do not edit src/types.ts.` guardrail |
-| `demo/16-commit` | 38–39: inspect `/commit`, commit a note | Same code and guardrail; clean working tree |
-| `demo/17-api-skill` | 40–41: request additional search tests | Example NOTES.md committed through normal Git |
-| `demo/18-reviewer` | 42–43: reviewer checks change, refuses edits | Additional API tests; completed implementations |
-| `demo/19-finished` | 44–47: hooks/MCP discussion and portability | Same completed code; no hook demo required |
+| Branch to switch to     | Slides / demo to perform                      | Already completed                                              |
+| ----------------------- | --------------------------------------------- | -------------------------------------------------------------- |
+| `demo/01-setup`         | 9–13: startup, tests, architecture            | Starter app; 12 tests                                          |
+| `demo/02-prompt-race`   | 14: vague vs strong rating prompts            | Same starter                                                   |
+| `demo/03-low-stock`     | 15: pairs specify a low-stock warning         | Same starter; isolated exercise                                |
+| `demo/04-completions`   | 16–17: add `listLowStock()` in Store          | Clean starter, experimental edits cleared                      |
+| `demo/05-inline-chat`   | 17: reject blank/whitespace book id           | Low-stock method and tests                                     |
+| `demo/06-agent-ratings` | 18: add optional 0–5 rating, seed all books   | Inline validation and tests                                    |
+| `demo/07-context`       | 19: attach files, explain routing             | Ratings, seed values, API tests                                |
+| `demo/08-ask`           | 21–22: explore, trace, explain                | Same code; Ask stays read-only                                 |
+| `demo/09-plan`          | 23–24: agree search/filter semantics          | Same code; plan not yet saved                                  |
+| `demo/10-build-phase-1` | 25: implement `q` search only                 | Accepted plan in `docs/demo-search-plan.md`                    |
+| `demo/11-build-phase-2` | 25: add `genre` and AND combination           | Phase 1: title/author search and tests                         |
+| `demo/12-run-test-fix`  | 26: run tests, cover edge cases               | Phase 2: search + genre API and core tests                     |
+| `demo/13-review`        | 27–29: inspect diff, discuss undo and context | Search edge cases and invalid-input tests                      |
+| `demo/14-standards`     | 33–35: add a guardrail, try forbidden edit    | Completed morning feature; original AGENTS.md                  |
+| `demo/15-scoped-rules`  | 36–37: inspect scoped instructions            | Added `Do not edit src/types.ts.` guardrail                    |
+| `demo/16-commit`        | 38–39: inspect `/commit`, commit a note       | Same code and guardrail; clean working tree                    |
+| `demo/17-api-skill`     | 40–41: request additional search tests        | Example NOTES.md committed through normal Git                  |
+| `demo/18-reviewer`      | 42–43: reviewer checks change, refuses edits  | Additional API tests; completed implementations                |
+| `demo/19-finished`      | 44–47: hooks/MCP discussion and portability   | Completed demos plus final review fixes; no hook demo required |
 
 Slides 14–15 are isolated experiments, not prerequisites for slide 17. Before
-slide 17 switch to `demo/04-completions`, stashing their edits first. This keeps
+slide 17 start a fresh class branch from `origin/demo/04-completions`, stashing
+the experiment edits first. This keeps
 slide 18's repeated rating task meaningful. Separate completed examples:
 
 - `demo/example-ratings-complete`: strong prompt result from the clean starter.
@@ -63,8 +85,8 @@ slide 18's repeated rating task meaningful. Separate completed examples:
 
 ## Exact demo prompts and observable results
 
-**14:** Compare the two prompts in separate fresh chats, each starting from
-`demo/02-prompt-race`. Do not predict that the vague prompt must fail: output is
+**14:** Compare the two prompts in separate fresh chats, each on a fresh class branch starting from
+`origin/demo/02-prompt-race`. Do not predict that the vague prompt must fail: output is
 nondeterministic. Strong version: “Add optional numeric rating 0–5 to Book; seed
 all eight ratings; both GET routes include ratings; add API tests; no new
 dependencies; keep existing tests green.” Do not add a write endpoint.
@@ -106,12 +128,12 @@ curl -fsS 'http://localhost:3000/api/books?q=not-a-real-title'
 
 Expect respectively: The Light Between Oceans; the same book by author;
 3 Mystery books; The Cartographers and In the Woods; []. No query still returns
-8 books. For the prepared red/green exercise, switch to the bug branch, run
+8 books. For the prepared red/green exercise, start a fresh class branch from `origin/demo/bug-search-case-sensitive`, run
 `npm test`, correct the case-sensitive comparison in src/store.ts, rerun.
 The failure is prepared deliberately; numbered recovery checkpoints are green.
 
 **27:** Compare phases with
-`git diff demo/10-build-phase-1..demo/13-review -- src tests`.
+`git diff origin/demo/10-build-phase-1..origin/demo/13-review -- src tests`.
 Demonstrate discarding changes only on a deliberately edited file after saving
 useful work. For a committed change use `git revert <that-demo-commit>` on a
 personal rehearsal branch, not a shared recovery branch.
@@ -124,35 +146,51 @@ line is present from checkpoint 15 onward.
 **38–39:** `/commit` needs an actual change. At checkpoint 16 create a small
 NOTES.md with an architecture summary, inspect the diff, invoke /commit,
 and inspect the resulting commit. If it fails, checkpoint 17 has that note
-committed. To stage exactly the prepared example before invoking /commit:
-`git show demo/17-api-skill:NOTES.md > NOTES.md`.
-The prompt file currently pins gpt-4.1; check model availability in
-your VS Code/Copilot account before class (or select an available model).
+committed. If NOTES.md does not already exist, prepare the example with:
+
+```sh
+(set -C; git show origin/demo/17-api-skill:NOTES.md > NOTES.md)
+git diff --no-index -- /dev/null NOTES.md
+```
+
+The subshell refuses to overwrite an existing file. If NOTES.md already exists
+from the Ask/Agent exploration, preserve it and inspect that version instead.
+`git diff --no-index` returns 1 when a diff exists; that is expected. Creating
+the file does not stage it; /commit stages the reviewed changes. The prompt
+uses your selected model, with no hard-coded model requirement.
 
 **41:** Ask “Add regression tests proving that a search by author can be
 combined with genre, preserves seeded catalogue order, and does not affect
 book detail lookup.” The tests are already completed in checkpoint 18.
 The repository api-testing skill and tests instructions remain unchanged.
 
-**43:** A clean backup branch has no working diff. Ask the reviewer to compare
-`demo/10-build-phase-1` with `demo/13-review`. To present an unstaged diff instead,
-start from checkpoint 10 and apply a patch of that range after stashing work:
+**43:** A clean checkpoint has no working diff, and the reviewer has no
+terminal tool for arbitrary Git comparisons. Prepare an actual unstaged diff
+before selecting it. Stash other work first and stop the old server:
 
 ```sh
-git diff demo/10-build-phase-1 demo/13-review -- src tests > ../morning-demo.patch
+git fetch origin
+git switch --no-track -c class/reviewer-01 origin/demo/10-build-phase-1
+git diff origin/demo/10-build-phase-1 origin/demo/13-review -- src tests > ../morning-demo.patch
 git apply --check ../morning-demo.patch
 git apply ../morning-demo.patch
+npm test                    # 37 passing tests on this prepared working tree
 ```
 
-Then ask for review and request a fix. The actual reviewer has only
-search/codebase, search/usages and search/changes; it has no execution/edit tool.
-Its response/refusal and skill auto-activation require live VS Code rehearsal.
+Select Reviewer and ask “Review the current uncommitted changes against
+AGENTS.md and the accepted search plan.” Then request a fix. The actual
+reviewer has only search/codebase, search/usages and search/changes; it has no
+execution/edit tool. The patch supplies the working changes its search/changes
+tool can inspect. Its response/refusal and skill auto-activation require live
+VS Code rehearsal. Do not claim that missing edit tools prevent an AI from
+printing a patch: the prompt asks it not to, while the tool boundary prevents
+it from applying one itself.
 
 ## Deck/repository verification findings
 
-- Slides 9–11: starter has 12 passing tests; one process, no database. README
-  says Node >=20 and .nvmrc pins 20; slide 10 asks 22/24. Tests are rehearsed on
-  available Node 24 as the deck requests; use a consistent version for class.
+- Slides 9–11: starter has 12 passing tests; one process, no database. Demo branches standardise
+  on Node 24 LTS in README and .nvmrc. The original main remains unchanged.
+  Package engines still accepts >=20; the selected classroom runtime is 24.
 - Slide 14 calls rating optional while requiring every book to have one:
   interpret as optional type field, populated for every seeded book.
 - Slide 17: an absent route parameter never reaches the detail handler.
