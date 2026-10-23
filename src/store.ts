@@ -27,7 +27,7 @@ class Store {
         (book) =>
           !q || book.title.toLowerCase().includes(q) || book.author.toLowerCase().includes(q),
       )
-      .filter((book) => !genre || book.genre.toLowerCase() === genre)
+      .filter((book) => !genre || book.genre === genre)
       .map((book) => ({ ...book }));
   }
 
