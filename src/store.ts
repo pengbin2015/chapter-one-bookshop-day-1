@@ -19,8 +19,14 @@ class Store {
     this.books = SEED_BOOKS.map((b) => ({ ...b }));
   }
 
-  listBooks(): Book[] {
-    return this.books.map((b) => ({ ...b }));
+  listBooks(filters: { q?: string } = {}): Book[] {
+    const q = filters.q?.trim().toLowerCase() ?? "";
+    return this.books
+      .filter(
+        (book) =>
+          !q || book.title.toLowerCase().includes(q) || book.author.toLowerCase().includes(q),
+      )
+      .map((book) => ({ ...book }));
   }
 
   /** Copies of catalogue books with three or fewer copies in stock. */
