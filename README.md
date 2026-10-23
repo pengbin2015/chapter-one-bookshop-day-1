@@ -9,17 +9,18 @@ add, remove, or buy books — those are the features you build during the course
 
 ## Run it
 
-Requires **Node 20+**.
+Use **Node 24 LTS** for the Day 1 demos (`.nvmrc` pins 24).
+The package accepts Node 20+, but the classroom checkpoints are rehearsed on 24.
 
 ```bash
-npm install
+npm ci
 npm run dev        # http://localhost:3000
 ```
 
 In another terminal:
 
 ```bash
-npm test           # 12 tests, all green
+npm test           # test counts vary by checkpoint (starter: 12)
 curl localhost:3000/api/health
 curl localhost:3000/api/books
 ```
@@ -38,7 +39,7 @@ docs/           domain glossary and architecture decision records (ADRs)
                 prompt files, and a read-only reviewer agent
 ```
 
-## The API (starter)
+## The API
 
 | Method | Path             | Purpose                           |
 | ------ | ---------------- | --------------------------------- |
@@ -57,3 +58,11 @@ Read **`AGENTS.md`** first — it holds the conventions and guardrails. Path-spe
 rules live in `.github/instructions/`, reusable prompts in `.github/prompts/`,
 a read-only reviewer persona in `.github/agents/`, and an `api-testing` skill in
 `.github/skills/`.
+
+## Instructor checkpoints
+
+See [the class demo guide](docs/class-demo-guide.md) for the slide-to-branch
+map, expected behaviour, and recovery commands. Start a fresh `class/...`
+working branch from an `origin/demo/...` checkpoint; keep the backup refs
+unchanged. Search/rating features vary by checkpoint. No dependencies change
+between checkpoints. The intentional bug branch is expected to fail tests.
