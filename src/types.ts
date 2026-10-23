@@ -8,6 +8,8 @@ export interface Book {
   genre: string;
   /** Copies in stock. Low values (<= 3) are the ones worth flagging. */
   stock: number;
+  /** Optional reader rating, from 0 to 5 inclusive. */
+  rating?: number;
   description: string;
   /** Hex colour (no leading #) shown as a fallback behind the cover image. */
   cover: string;

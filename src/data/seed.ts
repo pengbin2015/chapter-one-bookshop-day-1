@@ -16,6 +16,7 @@ export const SEED_BOOKS: Book[] = [
     author: "M. L. Stedman",
     price: 14.99,
     genre: "Fiction",
+    rating: 4.5,
     stock: 12,
     description:
       "A lighthouse keeper and his wife raise a baby that washes ashore in a boat, a choice with devastating consequences.",
@@ -28,6 +29,7 @@ export const SEED_BOOKS: Book[] = [
     author: "Peng Shepherd",
     price: 13.49,
     genre: "Mystery",
+    rating: 4.5,
     stock: 3,
     description:
       "A young mapmaker uncovers a dangerous secret hidden in a seemingly worthless map after her estranged father's death.",
@@ -40,6 +42,7 @@ export const SEED_BOOKS: Book[] = [
     author: "Andy Weir",
     price: 15.99,
     genre: "Sci-Fi",
+    rating: 4.5,
     stock: 8,
     description:
       "A lone astronaut wakes with amnesia aboard a spacecraft and must piece together his mission to save humanity.",
@@ -52,6 +55,7 @@ export const SEED_BOOKS: Book[] = [
     author: "Geraldine Brooks",
     price: 13.99,
     genre: "Historical Fiction",
+    rating: 4.5,
     stock: 2,
     description:
       "A rare-book expert traces the centuries-spanning history of the Sarajevo Haggadah through the tiny artifacts in its binding.",
@@ -64,6 +68,7 @@ export const SEED_BOOKS: Book[] = [
     author: "Liane Moriarty",
     price: 12.99,
     genre: "Mystery",
+    rating: 4.5,
     stock: 20,
     description:
       "Three mothers in a seaside town find their seemingly perfect lives unraveling toward a shocking night of violence.",
@@ -76,6 +81,7 @@ export const SEED_BOOKS: Book[] = [
     author: "Tana French",
     price: 14.49,
     genre: "Mystery",
+    rating: 4.5,
     stock: 1,
     description:
       "A Dublin detective investigates a child's murder in the same woods where he survived a disappearance decades earlier.",
@@ -88,6 +94,7 @@ export const SEED_BOOKS: Book[] = [
     author: "Elizabeth Gilbert",
     price: 16.5,
     genre: "Historical Fiction",
+    rating: 4.5,
     stock: 6,
     description:
       "A brilliant 19th-century botanist devotes her life to science and desire while exploring the mysteries of evolution.",
@@ -100,6 +107,7 @@ export const SEED_BOOKS: Book[] = [
     author: "J. Ryan Stradal",
     price: 11.99,
     genre: "Fiction",
+    rating: 4.5,
     stock: 3,
     description:
       "A chef with a once-in-a-generation palate becomes a culinary star, told through the lives of those she touches.",
