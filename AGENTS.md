@@ -35,6 +35,8 @@ and any spec you write.
 
 ## Guardrails (do not cross without being asked)
 
+- Do not edit src/types.ts.
+
 - **No new dependencies.** Solve problems with what is already installed. If you
   believe a dependency is truly required, stop and ask first.
 - **No CSS frameworks.** No Tailwind, Bootstrap, etc.
