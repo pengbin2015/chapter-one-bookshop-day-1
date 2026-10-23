@@ -231,3 +231,9 @@ body {
   font-size: 0.85rem;
   text-align: center;
 }
+
+/* Catalogue warning for the low-stock prompt exercise. */
+.low-stock {
+  color: #854000;
+  font-weight: 600;
+}

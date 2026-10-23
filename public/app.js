@@ -31,6 +31,7 @@ export function bookCardHTML(book) {
       ></div>
       <h3 class="card-title">${title}</h3>
       <p class="card-author">${author}</p>
+      ${book.stock <= 3 ? '<p class="low-stock">Low stock</p>' : ""}
       <div class="card-foot">
         <span class="price">${formatPrice(book.price)}</span>
         <button class="btn view-btn" data-id="${escapeHtml(book.id)}">View Book</button>

@@ -40,3 +40,12 @@ describe("bookCardHTML", () => {
     expect(html).toContain("&lt;img");
   });
 });
+
+describe("low-stock catalogue warning", () => {
+  it.each([0, 1, 2, 3])("shows a warning at stock %i", (stock) => {
+    expect(bookCardHTML({ ...sample, stock })).toContain('class="low-stock">Low stock');
+  });
+  it.each([4, 8, 20])("hides the warning at stock %i", (stock) => {
+    expect(bookCardHTML({ ...sample, stock })).not.toContain('class="low-stock"');
+  });
+});
