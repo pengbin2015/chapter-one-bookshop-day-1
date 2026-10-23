@@ -9,6 +9,7 @@ export interface BookLike {
   stock: number;
   description: string;
   cover: string;
+  coverImage: string;
 }
 export function escapeHtml(value: unknown): string;
 export function formatPrice(price: number): string;

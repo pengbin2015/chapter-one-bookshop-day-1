@@ -1,7 +1,6 @@
 ---
 description: Stage and write a clean commit for the current changes.
 agent: agent
-model: gpt-4.1
 tools: ["search/changes", "search/codebase", "execute/runInTerminal", "edit/editFiles"]
 ---
 
