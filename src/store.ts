@@ -19,13 +19,15 @@ class Store {
     this.books = SEED_BOOKS.map((b) => ({ ...b }));
   }
 
-  listBooks(filters: { q?: string } = {}): Book[] {
+  listBooks(filters: { q?: string; genre?: string } = {}): Book[] {
     const q = filters.q?.trim().toLowerCase() ?? "";
+    const genre = filters.genre?.trim().toLowerCase() ?? "";
     return this.books
       .filter(
         (book) =>
           !q || book.title.toLowerCase().includes(q) || book.author.toLowerCase().includes(q),
       )
+      .filter((book) => !genre || book.genre.toLowerCase() === genre)
       .map((book) => ({ ...book }));
   }
 
