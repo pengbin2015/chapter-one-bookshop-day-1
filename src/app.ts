@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type ErrorRequestHandler } from "express";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { booksRouter } from "./routes/books.js";
@@ -25,6 +25,26 @@ export function createApp() {
   app.use("/api", (_req, res) => {
     res.status(404).json({ error: "Not Found" });
   });
+
+  // Errors raised by Express (for example URL decoding or JSON parsing) must
+  // obey the same JSON error contract as errors raised in our route handlers.
+  const apiErrorHandler: ErrorRequestHandler = (error: unknown, _req, res, next) => {
+    if (res.headersSent) {
+      next(error);
+      return;
+    }
+    const candidate =
+      typeof error === "object" && error !== null && "status" in error ? error.status : undefined;
+    const status =
+      typeof candidate === "number" &&
+      Number.isInteger(candidate) &&
+      candidate >= 400 &&
+      candidate < 500
+        ? candidate
+        : 500;
+    res.status(status).json({ error: status < 500 ? "Invalid request" : "Internal server error" });
+  };
+  app.use("/api", apiErrorHandler);
 
   return app;
 }
