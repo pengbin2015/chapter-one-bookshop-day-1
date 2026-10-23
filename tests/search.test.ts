@@ -95,3 +95,31 @@ describe("catalogue query edge cases", () => {
     expect(after.body).toEqual(before.body);
   });
 });
+
+describe("search regression coverage", () => {
+  it("combines an author match with genre", async () => {
+    const res = await request(app).get("/api/books").query({ q: "WEIR", genre: "sci-fi" });
+    expect(res.status).toBe(200);
+    expect(res.body.map((book: { id: string }) => book.id)).toEqual(["quiet-orbit"]);
+  });
+  it("preserves catalogue order among multiple search results", async () => {
+    const res = await request(app).get("/api/books").query({ q: "the" });
+    expect(res.status).toBe(200);
+    expect(res.body.map((book: { id: string }) => book.id)).toEqual([
+      "the-lantern-sea",
+      "paper-mountains",
+      "the-maple-archive",
+      "midnight-in-bellview",
+      "the-cartographers-daughter",
+      "salt-and-cedar",
+    ]);
+  });
+  it("keeps detail lookup independent of catalogue query filters", async () => {
+    const res = await request(app)
+      .get("/api/books/the-lantern-sea")
+      .query({ q: "no-match", genre: "Mystery" });
+    expect(res.status).toBe(200);
+    expect(res.body.id).toBe("the-lantern-sea");
+    expect(res.body.rating).toBe(4.5);
+  });
+});
