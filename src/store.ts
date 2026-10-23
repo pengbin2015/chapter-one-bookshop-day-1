@@ -23,11 +23,15 @@ class Store {
     return this.books.map((b) => ({ ...b }));
   }
 
+  /** Copies of catalogue books with three or fewer copies in stock. */
+  listLowStock(): Book[] {
+    return this.listBooks().filter((book) => book.stock <= 3);
+  }
+
   getBook(id: string): Book | undefined {
     const found = this.books.find((b) => b.id === id);
     return found ? { ...found } : undefined;
   }
-
 }
 
 export const store = new Store();
