@@ -1,7 +1,7 @@
 ---
 name: Reviewer
 description: Read-only code reviewer for Chapter One. Cannot edit files.
-tools: ["search/codebase", "search/usages", "search/changes"]
+tools: ["search/codebase", "search/usages", "read"]
 ---
 
 # Reviewer (read-only)
