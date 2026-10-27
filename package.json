@@ -1,7 +1,7 @@
 {
   "name": "chapter-one-bookshop",
   "version": "1.0.0",
-  "description": "Chapter One \u2014 a deliberately small online bookshop used for the AI-Augmented SDLC course.",
+  "description": "Chapter One — a deliberately small online bookshop used for the AI-Augmented SDLC course.",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@types/express": "^4.17.21",
-    "@types/node": "^20.17.0",
+    "@types/node": "^24.19.2",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.17.0",
     "prettier": "^3.4.2",
@@ -30,6 +30,6 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.0",
-    "vitest": "^2.1.8"
+    "vitest": "^5.0.5"
   }
 }
