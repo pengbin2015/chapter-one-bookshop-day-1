@@ -27,7 +27,6 @@ class Store {
     const found = this.books.find((b) => b.id === id);
     return found ? { ...found } : undefined;
   }
-
 }
 
 export const store = new Store();
